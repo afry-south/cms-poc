@@ -40,11 +40,22 @@ model Tag {
   projects Project[] @relation("Project_tags_Tag_projects")
 }
 
+model Image {
+  id            String  @id @default(cuid())
+  img_filesize  Int?
+  img_extension String?
+  img_width     Int?
+  img_height    Int?
+  img_mode      String?
+  img_id        String?
+}
+
 model Project {
   id              String  @id @default(cuid())
   title           String  @default("")
   subtitle        String  @default("")
   description     String  @default("")
+  content         String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   image_filesize  Int?
   image_extension String?
   image_width     Int?

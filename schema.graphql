@@ -331,20 +331,9 @@ input ProjectRelateToManyForCreateInput {
   connect: [ProjectWhereUniqueInput!]
 }
 
-type Project {
+type Image {
   id: ID!
-  title: String
-  subtitle: String
-  description: String
-  image: ImageFieldOutput
-  clientName: String
-  tags(
-    where: TagWhereInput! = {}
-    orderBy: [TagOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Tag!]
-  tagsCount(where: TagWhereInput! = {}): Int
+  img: ImageFieldOutput
 }
 
 interface ImageFieldOutput {
@@ -362,6 +351,65 @@ enum ImageExtension {
   png
   webp
   gif
+}
+
+input ImageWhereUniqueInput {
+  id: ID
+}
+
+input ImageWhereInput {
+  AND: [ImageWhereInput!]
+  OR: [ImageWhereInput!]
+  NOT: [ImageWhereInput!]
+  id: IDFilter
+}
+
+input ImageOrderByInput {
+  id: OrderDirection
+}
+
+input ImageUpdateInput {
+  img: ImageFieldInput
+}
+
+input ImageFieldInput {
+  upload: Upload
+  ref: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input ImageUpdateArgs {
+  where: ImageWhereUniqueInput!
+  data: ImageUpdateInput!
+}
+
+input ImageCreateInput {
+  img: ImageFieldInput
+}
+
+type Project {
+  id: ID!
+  title: String
+  subtitle: String
+  description: String
+  content: Project_content_Document
+  image: ImageFieldOutput
+  clientName: String
+  tags(
+    where: TagWhereInput! = {}
+    orderBy: [TagOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Tag!]
+  tagsCount(where: TagWhereInput! = {}): Int
+}
+
+type Project_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 input ProjectWhereUniqueInput {
@@ -412,20 +460,11 @@ input ProjectUpdateInput {
   title: String
   subtitle: String
   description: String
+  content: JSON
   image: ImageFieldInput
   clientName: String
   tags: TagRelateToManyForUpdateInput
 }
-
-input ImageFieldInput {
-  upload: Upload
-  ref: String
-}
-
-"""
-The `Upload` scalar type represents a file upload.
-"""
-scalar Upload
 
 input ProjectUpdateArgs {
   where: ProjectWhereUniqueInput!
@@ -436,6 +475,7 @@ input ProjectCreateInput {
   title: String
   subtitle: String
   description: String
+  content: JSON
   image: ImageFieldInput
   clientName: String
   tags: TagRelateToManyForCreateInput
@@ -468,6 +508,12 @@ type Mutation {
   updateTags(data: [TagUpdateArgs!]!): [Tag]
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createImage(data: ImageCreateInput!): Image
+  createImages(data: [ImageCreateInput!]!): [Image]
+  updateImage(where: ImageWhereUniqueInput!, data: ImageUpdateInput!): Image
+  updateImages(data: [ImageUpdateArgs!]!): [Image]
+  deleteImage(where: ImageWhereUniqueInput!): Image
+  deleteImages(where: [ImageWhereUniqueInput!]!): [Image]
   createProject(data: ProjectCreateInput!): Project
   createProjects(data: [ProjectCreateInput!]!): [Project]
   updateProject(
@@ -531,6 +577,14 @@ type Query {
   ): [Tag!]
   tag(where: TagWhereUniqueInput!): Tag
   tagsCount(where: TagWhereInput! = {}): Int
+  images(
+    where: ImageWhereInput! = {}
+    orderBy: [ImageOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Image!]
+  image(where: ImageWhereUniqueInput!): Image
+  imagesCount(where: ImageWhereInput! = {}): Int
   projects(
     where: ProjectWhereInput! = {}
     orderBy: [ProjectOrderByInput!]! = []

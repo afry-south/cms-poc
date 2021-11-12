@@ -135,6 +135,11 @@ export const lists = {
       projects: relationship({ ref: "Project.tags", many: true }),
     },
   }),
+  Image: list({
+    fields: {
+      img: image(),
+    },
+  }),
   Project: list({
     // Here are the fields that `User` will have. We want an email and password so they can log in
     // a name so we can refer to them, and a way to connect users to posts.
@@ -143,9 +148,19 @@ export const lists = {
       subtitle: text({ validation: { isRequired: true } }),
       description: text({
         validation: { isRequired: true },
-        ui: {
-          displayMode: "textarea",
-        },
+        ui: { displayMode: "textarea" },
+      }),
+      content: document({
+        formatting: true,
+        layouts: [
+          [1, 1],
+          [1, 1, 1],
+          [2, 1],
+          [1, 2],
+          [1, 2, 1],
+        ],
+        links: true,
+        dividers: true,
       }),
       image: image(),
       clientName: text({ validation: { isRequired: true } }),
