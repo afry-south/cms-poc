@@ -34,7 +34,24 @@ model Post {
 }
 
 model Tag {
-  id    String @id @default(cuid())
-  name  String @default("")
-  posts Post[] @relation("Post_tags_Tag_posts")
+  id       String    @id @default(cuid())
+  name     String    @default("")
+  posts    Post[]    @relation("Post_tags_Tag_posts")
+  projects Project[] @relation("Project_tags_Tag_projects")
+}
+
+model Project {
+  id              String  @id @default(cuid())
+  title           String  @default("")
+  subtitle        String  @default("")
+  description     String  @default("")
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_mode      String?
+  image_id        String?
+  clientName      String  @default("")
+  jobDescription  String  @default("")
+  tags            Tag[]   @relation("Project_tags_Tag_projects")
 }
