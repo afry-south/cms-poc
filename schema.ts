@@ -149,7 +149,6 @@ export const lists = {
       }),
       image: image(),
       clientName: text({ validation: { isRequired: true } }),
-      jobDescription: text({ validation: { isRequired: true } }),
       tags: relationship({
         ref: "Tag.projects",
         ui: {

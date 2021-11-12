@@ -52,6 +52,5 @@ model Project {
   image_mode      String?
   image_id        String?
   clientName      String  @default("")
-  jobDescription  String  @default("")
   tags            Tag[]   @relation("Project_tags_Tag_projects")
 }

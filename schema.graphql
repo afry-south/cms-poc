@@ -338,7 +338,6 @@ type Project {
   description: String
   image: ImageFieldOutput
   clientName: String
-  jobDescription: String
   tags(
     where: TagWhereInput! = {}
     orderBy: [TagOrderByInput!]! = []
@@ -398,7 +397,6 @@ input ProjectWhereInput {
   subtitle: StringFilter
   description: StringFilter
   clientName: StringFilter
-  jobDescription: StringFilter
   tags: TagManyRelationFilter
 }
 
@@ -408,7 +406,6 @@ input ProjectOrderByInput {
   subtitle: OrderDirection
   description: OrderDirection
   clientName: OrderDirection
-  jobDescription: OrderDirection
 }
 
 input ProjectUpdateInput {
@@ -417,7 +414,6 @@ input ProjectUpdateInput {
   description: String
   image: ImageFieldInput
   clientName: String
-  jobDescription: String
   tags: TagRelateToManyForUpdateInput
 }
 
@@ -442,7 +438,6 @@ input ProjectCreateInput {
   description: String
   image: ImageFieldInput
   clientName: String
-  jobDescription: String
   tags: TagRelateToManyForCreateInput
 }
 
